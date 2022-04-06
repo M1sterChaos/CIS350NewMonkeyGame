@@ -4,31 +4,63 @@ using UnityEngine;
 
 public class TempPlayerMove : MonoBehaviour
 {
+    [SerializeField]
+    private float upperBounds = 4.5f;
+    [SerializeField]
+    private float lowerBounds = -4.53f;
+    [SerializeField]
+    private float[] lane;
+
+    private int count = 0;
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.W))
+        MoveUpOrDown();
+    }
+
+    public void MoveUpOrDown()
+    {
+        if (Input.GetKeyDown(KeyCode.W))
         {
-            if(this.transform.position.y < 4.5f)
+            if(count > lane.Length - 2)
             {
-                this.transform.Translate(new Vector3(0, 3f, 0));
-                if (this.transform.position.y >= 4.5f)
-                {
-                    transform.position = new Vector3(transform.position.x, 4.5f, transform.position.z);
-                }
-                
+                count = lane.Length - 1;
+            }
+            else if(count < 0)
+            {
+                count = 1;
+            }
+            else
+            {
+                count++;
+            }
+            if (this.transform.position.y >= upperBounds)
+            {
+                transform.position = new Vector3(transform.position.x, upperBounds, transform.position.z);
+            }
+            else
+            {
+                transform.position = new Vector3(transform.position.x, lane[count], transform.position.z);
             }
         }
         if (Input.GetKeyDown(KeyCode.S))
         {
-            if (this.transform.position.y > -4.5f)
+            if (count < 0)
             {
-                this.transform.Translate(new Vector3(0, -3f, 0));
-                if (this.transform.position.y <= -4.5f)
-                {
-                    transform.position = new Vector3(transform.position.x, -4.5f, transform.position.z);
-                }
+                count = 0;
+            }
+            else
+            {
+                count--;
+            }
+            if (this.transform.position.y <= lowerBounds)
+            {
+                transform.position = new Vector3(transform.position.x, lowerBounds, transform.position.z);
+            }
+            else
+            {
+                transform.position = new Vector3(transform.position.x, lane[count], transform.position.z);
             }
         }
     }
