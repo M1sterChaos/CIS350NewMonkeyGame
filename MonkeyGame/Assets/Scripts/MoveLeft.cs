@@ -17,7 +17,7 @@ public class MoveLeft : MonoBehaviour
 
     void Start()
     {
-        playerControllerScript = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+       playerControllerScript = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
     }
 
     // Update is called once per frame
