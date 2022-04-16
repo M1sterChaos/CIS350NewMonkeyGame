@@ -17,6 +17,7 @@ public class PlayerMove : MonoBehaviour
 
     [SerializeField]
     private float speedModifier;
+
     // Update is called once per frame
     void Update()
     {

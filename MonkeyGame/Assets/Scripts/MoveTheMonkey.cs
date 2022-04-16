@@ -9,12 +9,29 @@ using UnityEngine;
 
 public class MoveTheMonkey : MonoBehaviour
 {
-    private Vector3 pos1 = new Vector3(12, 2, 0);
-    private Vector3 pos2 = new Vector3(12, -4, 0);
-    public float speed = 0.75f;
+    public Transform pos1, pos2;
+    public float speed;
+    public Transform startPos;
+
+    Vector3 nextPos;
+
+    void Start()
+    {
+        nextPos = startPos.position;
+    }
 
     void Update()
     {
-        transform.position = Vector3.Lerp(pos1, pos2, Mathf.PingPong(Time.time * speed, 1.0f));
+        if (transform.position == pos1.position)
+            nextPos = pos2.position;
+        if (transform.position == pos2.position)
+            nextPos = pos1.position;
+
+        transform.position = Vector3.MoveTowards(transform.position, nextPos, speed * Time.deltaTime);
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawLine(pos1.position, pos2.position);
     }
 }
