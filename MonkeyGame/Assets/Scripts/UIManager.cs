@@ -12,7 +12,7 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
-    public int score = 0;
+    static public int score = 0;
     public Text scoreText;
     public PlayerController playerControllerScript;
     public bool won = false;
@@ -56,6 +56,7 @@ public class UIManager : MonoBehaviour
 
         if (playerControllerScript.gameOver && Input.GetKeyDown(KeyCode.R))
         {
+            score = 0;
             UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex);
         }
     }

@@ -18,12 +18,22 @@ public class PlayerMove : MonoBehaviour
     [SerializeField]
     private float speedModifier;
 
+    private PlayerController playerControllerScript;
+
+    private void Start()
+    {
+        playerControllerScript = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+    }
+
     // Update is called once per frame
     void Update()
     {
-        hMove = Input.GetAxis("Horizontal");
-        transform.Translate(Vector2.right * (hMove * speedModifier) * Time.deltaTime, Space.World);
-        MoveUpOrDown();
+        if (!playerControllerScript.gameOver)
+        {
+            hMove = Input.GetAxis("Horizontal");
+            transform.Translate(Vector2.right * (hMove * speedModifier) * Time.deltaTime, Space.World);
+            MoveUpOrDown();
+        }
     }
 
     public void MoveUpOrDown()
