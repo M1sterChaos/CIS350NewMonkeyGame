@@ -1,3 +1,6 @@
+/*
+ * Austin Buck
+ */
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,6 +11,10 @@ public class PlayerMove : MonoBehaviour
     private float upperBounds = 4.5f;
     [SerializeField]
     private float lowerBounds = -4.53f;
+    [SerializeField]
+    private float leftBound = -3f;
+    [SerializeField]
+    private float rightBound = 3f;
     [SerializeField]
     private float[] lane;
 
@@ -31,7 +38,17 @@ public class PlayerMove : MonoBehaviour
         if (!playerControllerScript.gameOver)
         {
             hMove = Input.GetAxis("Horizontal");
+            if(this.transform.position.x < leftBound)
+            {
+                transform.position = new Vector3(leftBound, transform.position.y, transform.position.z);
+            }
+            else if (this.transform.position.x > rightBound)
+            {
+                transform.position = new Vector3(rightBound, transform.position.y, transform.position.z);
+            }
+
             transform.Translate(Vector2.right * (hMove * speedModifier) * Time.deltaTime, Space.World);
+
             MoveUpOrDown();
         }
     }
