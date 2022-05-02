@@ -18,13 +18,11 @@ public class SmogController : MonoBehaviour
 
     // We can update this variable to set different levels of smog depending on
     // the players mode of transportation
-    private string playerVehicle;
+    private int playerVehicle;
 
     // Start is called before the first frame update
     void Start()
     {
-        playerVehicle = "Car";
-
         smog1.Play();
         smog3.Play();
         smog5.Play();
@@ -43,22 +41,21 @@ public class SmogController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (playerVehicle == "Car")
-        {
-            
-        }
-        if (playerVehicle == "SmallerCar")
+        playerVehicle = UIManager.vehicle;
+
+        if (playerVehicle == 2)
         {
             smog1.Stop();
             smog2.Stop();
+            smog3.Stop();
         }
-        if (playerVehicle == "Moped")
+
+        if (playerVehicle == 3)
         {
+            smog1.Stop();
+            smog2.Stop();
             smog3.Stop();
             smog4.Stop();
-        }
-        if (playerVehicle == "Moped")
-        {
             smog5.Stop();
             smog6.Stop();
         }

@@ -13,6 +13,7 @@ using UnityEngine.UI;
 public class UIManager : MonoBehaviour
 {
     static public int score = 0;
+    public int maxScore = 10;
     public Text scoreText;
     public PlayerController playerControllerScript;
     public bool won = false;
@@ -58,7 +59,7 @@ public class UIManager : MonoBehaviour
     {
         if (!playerControllerScript.gameOver)
         {
-            scoreText.text = "Score: " + score +", " + vehicle;
+            scoreText.text = "Score: " + score + "/"+ maxScore;
         }
 
         if (playerControllerScript.gameOver && !won)
@@ -66,7 +67,7 @@ public class UIManager : MonoBehaviour
             scoreText.text = "You Lose!" + "\n" + "Press R to Try Again!";
         }
 
-        if(score >= 10)
+        if(score == maxScore)
         {
             playerControllerScript.gameOver = true;
             won = true;
@@ -87,6 +88,7 @@ public class UIManager : MonoBehaviour
         Time.timeScale = 1;
         UI.enabled = true;
         startscreen.enabled = false;
+        maxScore = 20;
     }
     public void bike()
     {
@@ -94,6 +96,7 @@ public class UIManager : MonoBehaviour
         plAnim.SetInteger("vehicle", 2);
         Time.timeScale = 1;
         UI.enabled = true;
+        maxScore = 15;
         startscreen.enabled = false;
     }
 
@@ -104,6 +107,7 @@ public class UIManager : MonoBehaviour
         Time.timeScale = 1;
         UI.enabled = true;
         startscreen.enabled = false;
+        maxScore = 10;
     }
 
 }
