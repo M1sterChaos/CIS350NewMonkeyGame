@@ -17,6 +17,8 @@ public class PlayerMove : MonoBehaviour
     private float rightBound = 3f;
     [SerializeField]
     private float[] lane;
+    [SerializeField]
+    private float[] hMoveVehicleMod;
 
     private int count = 0;
 
@@ -35,6 +37,7 @@ public class PlayerMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        MoveSpeed();
         if (!playerControllerScript.gameOver)
         {
             hMove = Input.GetAxis("Horizontal");
@@ -96,6 +99,24 @@ public class PlayerMove : MonoBehaviour
             {
                 transform.position = new Vector3(transform.position.x, lane[count], transform.position.z);
             }
+        }
+    }
+    private void MoveSpeed()
+    {
+        switch(UIManager.vehicle)
+        {
+            case 1:
+                speedModifier = hMoveVehicleMod[0];
+                break;
+            case 2:
+                speedModifier = hMoveVehicleMod[1];
+                break;
+            case 3:
+                speedModifier = hMoveVehicleMod[2];
+                break;
+            default:
+                speedModifier = hMoveVehicleMod[0];
+                break;
         }
     }
 }

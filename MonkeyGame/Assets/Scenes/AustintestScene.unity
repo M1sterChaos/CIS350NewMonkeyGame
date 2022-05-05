@@ -12520,6 +12520,10 @@ MonoBehaviour:
   - -0.93
   - -0.28
   - 0.39
+  hMoveVehicleMod:
+  - 10
+  - 5
+  - 2
   speedModifier: 10
 --- !u!111 &1936154061
 Animation:
