@@ -13,6 +13,7 @@ using UnityEngine.UI;
 public class UIManager : MonoBehaviour
 {
     static public int score = 0;
+    static public int level = 1;
     public int maxScore = 10;
     public Text scoreText;
     public PlayerController playerControllerScript;
@@ -72,11 +73,20 @@ public class UIManager : MonoBehaviour
             playerControllerScript.gameOver = true;
             won = true;
 
-            scoreText.text = "You Win!" + "\n" + "Press R to Try Again!";
+            scoreText.text = "You Win!\n Press C to Continue or \n R to try a different mode!";
+        }
+
+        if (playerControllerScript.gameOver && Input.GetKeyDown(KeyCode.C) && won)
+        {
+            level++;
+            score = 0;
+            playerControllerScript.gameOver = false;
+            won = false;
         }
 
         if (playerControllerScript.gameOver && Input.GetKeyDown(KeyCode.R))
         {
+            level = 1;
             score = 0;
             UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex);
         }

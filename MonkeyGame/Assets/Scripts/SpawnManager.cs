@@ -32,17 +32,22 @@ public class SpawnManager : MonoBehaviour
     {
         playerControllerScript = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         monkey = GameObject.FindGameObjectWithTag("Monkey");
-        InvokeRepeating("SpawnObstacle", startDelayObstacle, repeatRateObstacle);
+        StartCoroutine(SpawnObstacle(startDelayObstacle));
         InvokeRepeating("SpawnHealth", startDelayHealth, repeatRateHealth);
         InvokeRepeating("SpawnLoot", startDelayLoot, repeatRateLoot);
     }
 
-    void SpawnObstacle()
+    IEnumerator SpawnObstacle(float time)
     {
-        if (playerControllerScript.gameOver == false)
+        yield return new WaitForSeconds(time);
+        while (true)
         {
-            Vector2 spawnPosition = new Vector2(10, spawnPositions[Random.Range(0, spawnPositions.Length)]);
-            Instantiate(obstaclePrefab, spawnPosition, obstaclePrefab.transform.rotation);
+            if (playerControllerScript.gameOver == false)
+            {
+                Vector2 spawnPosition = new Vector2(10, spawnPositions[Random.Range(0, spawnPositions.Length)]);
+                Instantiate(obstaclePrefab, spawnPosition, obstaclePrefab.transform.rotation);
+            }
+            yield return new WaitForSeconds(repeatRateObstacle / UIManager.level);
         }
     }
 
